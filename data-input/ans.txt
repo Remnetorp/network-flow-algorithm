@@ -1,0 +1,17 @@
+data-input1.in:
+2 10
+
+data-input2.in:
+2 27
+
+data-input3.in:
+15 132
+
+data-input4.in:
+190 737
+
+data-input5.in:
+1881 10512
+
+data-input6.in:
+5734 9512
