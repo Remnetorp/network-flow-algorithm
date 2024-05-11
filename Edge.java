@@ -8,8 +8,21 @@ public class Edge{
         this.capacity = capacity;
     }
 
+    public boolean removeCapacity(int usedCapacity){
+        if(usedCapacity>capacity){
+            return false;
+        }else{
+            capacity = capacity - usedCapacity;
+            return true;
+        }
+    }
+
+    public int getTarget(){
+        return target;
+    }
+
     @Override
     public String toString(){
-        return "Source: " + source + "\nTarget: " + target + "\nCapacity: " + capacity;
+        return "Source: " + source + " Target: " + target + " Capacity: " + capacity;
     }
 }
