@@ -1,54 +1,39 @@
-import java.util.LinkedList;
 import java.util.Map;
 import java.lang.StringBuilder;
 import java.util.HashMap;
 
 public class Node{
     private int id;
-    private Map<Node,Integer> availableCapacity;
+    private Map<Integer,Edge> connections;
+    private Node previousNode;
 
     public Node(int id){
         this.id = id;
-        this.availableCapacity = new HashMap<>();
+        this.connections = new HashMap<>(); 
     }
 
-    public boolean changeCapacity(Node node, int capacity){
-        if(capacity > 0){
-            if(!availableCapacity.containsKey(node)){
-                availableCapacity.put(node, capacity);
-                return true;
-            }else{
-                int addedCapacity = availableCapacity.get(node) + capacity;
-                availableCapacity.put(node, addedCapacity);
-                return true;
-            }
-        }else{
-            if(!availableCapacity.containsKey(node)){
-                return false;
-            }else{
-                int newCapacity = availableCapacity.get(node) + capacity;
-                if (newCapacity < 0){
-                    return false;
-                }else{
-                    availableCapacity.put(node, newCapacity);
-                    return true;
-                }
-            }
-        }
+    public void addEdge(int target,Edge edge){
+        this.connections.put(target, edge);
     }
 
-    private void setCapacity(Node node, int capacity){
-        availableCapacity.put(node, capacity);
-    } 
-
-    public static void setMutualCapacity(Node node1, Node node2, int capacity){
-        node1.setCapacity(node2, capacity);
-        node2.setCapacity(node1, capacity);
-
+    public void removeEdge(int target){
+        this.connections.remove(target);
     }
 
-    public static boolean changeMutualCapacity(Node node1, Node node2, int capacity){
-        return node1.changeCapacity(node2, capacity) && node2.changeCapacity(node1, capacity);
+    public void setPreviousNode(Node node){
+        this.previousNode = node;
+    }
+
+    public Node getPreviousNode(){
+        return previousNode;
+    }
+
+    public Edge getConnection(int node){
+        return connections.get(node);
+    }
+
+    public Map<Integer,Edge> connectingNodes(){
+        return connections;
     }
 
     public int getId(){
@@ -57,12 +42,15 @@ public class Node{
 
     @Override
     public String toString(){
-        StringBuilder resultString = new StringBuilder();
-        resultString.append("Node " + this.getId() + " has following connections: \n");
-        for(Node node : availableCapacity.keySet()){
-            resultString.append("To Node " + node.getId() + " => Capacity " + availableCapacity.get(node) + "\n");
+        StringBuilder result = new StringBuilder();
+        result.append("Node ID: " + id + "\n");
+        for(int node : connections.keySet()){
+            Edge edge = connections.get(node);
+            result.append("Connection to " + node + " --> ");
+            result.append(edge.toString() + "\n");
         }
-        return resultString.toString();
+        return result.toString();
     }
+
 
 }

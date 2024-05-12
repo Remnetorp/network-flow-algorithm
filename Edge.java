@@ -1,10 +1,11 @@
-
 public class Edge{
-    private int capacity, source, target;
+    private int capacity;
+    private int[] nodes; 
 
-    public Edge(int source, int target, int capacity){
-        this.source = source;
-        this.target = target;
+    public Edge(int node1, int node2, int capacity){
+        this.nodes = new int[2];
+        this.nodes[0] = node1;
+        this.nodes[1] = node2;
         this.capacity = capacity;
     }
 
@@ -17,12 +18,16 @@ public class Edge{
         }
     }
 
-    public int getTarget(){
-        return target;
+    public int getCapacity(){
+        return capacity;
+    }
+
+    public int[] getNodes(){
+        return nodes;
     }
 
     @Override
     public String toString(){
-        return "Source: " + source + " Target: " + target + " Capacity: " + capacity;
+        return "Node1: " + nodes[0] + " Node2: " + nodes[1] + " Capacity: " + capacity;
     }
 }
